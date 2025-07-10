@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de Cursos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="./listCourses.js"></script>
+  <script type="module" src="./createCourse.js"></script>
+  <!-- Iconify para íconos -->
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-100 to-blue-50 min-h-screen py-8">
+
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
+    <!-- Panel de registro -->
+    <div class="flex-1 md:max-w-sm">
+      <div class="bg-white/90 rounded-2xl shadow-xl border border-slate-200 p-8 flex flex-col gap-5 backdrop-blur-md">
+        <h1 class="text-xl md:text-2xl font-bold text-blue-700 flex items-center gap-2">
+          <span class="iconify" data-icon="mdi:book-plus-outline"></span>
+          Registrar nuevo curso
+        </h1>
+        <p class="text-sm text-gray-500 mb-2 flex items-center gap-2">
+          <span class="iconify" data-icon="mdi:information-outline"></span>
+          Completa todos los campos para registrar un curso en el sistema.
+        </p>
+        <form id="courseForm" class="space-y-4">
+          <div>
+            <label for="name" class="text-sm font-semibold text-gray-700">Nombre del curso</label>
+            <input id="name" type="text" placeholder="Ejemplo: Álgebra Lineal" required
+              class="w-full mt-1 border-slate-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400 outline-none shadow-sm transition" />
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div>
+              <label for="credits" class="text-sm font-semibold text-gray-700">Créditos</label>
+              <input id="credits" type="number" min="0" placeholder="Créditos" required
+                class="w-full mt-1 border-slate-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400 outline-none shadow-sm transition" />
+            </div>
+            <div>
+              <label for="weeklyHours" class="text-sm font-semibold text-gray-700">Horas/Semana</label>
+              <input id="weeklyHours" type="number" min="0" placeholder="Horas" required
+                class="w-full mt-1 border-slate-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400 outline-none shadow-sm transition" />
+            </div>
+            <div>
+              <label for="cycle" class="text-sm font-semibold text-gray-700">Ciclo</label>
+              <input id="cycle" type="number" min="0" placeholder="Ciclo" required
+                class="w-full mt-1 border-slate-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400 outline-none shadow-sm transition" />
+            </div>
+          </div>
+          <div>
+            <label for="teacherId" class="text-sm font-semibold text-gray-700">Docente responsable</label>
+            <select id="teacherId" required
+              class="w-full mt-1 border-slate-300 rounded-xl p-2 bg-white focus:ring-2 focus:ring-blue-400 outline-none shadow-sm transition">
+              <option value="">Seleccione un docente</option>
+            </select>
+          </div>
+          <button type="submit"
+            class="w-full flex items-center justify-center gap-2 bg-blue-700 text-white font-semibold py-2 rounded-xl hover:bg-blue-800 active:scale-[.98] shadow transition">
+            <span class="iconify" data-icon="mdi:plus-circle"></span>
+            Crear curso
+          </button>
+        </form>
+        <div class="text-xs text-gray-400 mt-2 flex items-center gap-1">
+          <span class="iconify" data-icon="mdi:shield-check"></span>
+          Los cursos se almacenan de forma segura.
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel de listado de cursos -->
+    <div class="flex-[2] min-w-0">
+      <div class="bg-white/90 rounded-2xl shadow-xl border border-slate-200 p-8 flex flex-col gap-4 backdrop-blur-md min-h-[400px]">
+        <!-- Cabecera y opciones -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3">
+          <h2 class="text-xl md:text-2xl font-bold text-blue-700 flex items-center gap-2">
+            <span class="iconify" data-icon="mdi:book-open-variant"></span>
+            Lista de cursos registrados
+          </h2>
+          <div class="flex gap-2 items-center">
+            <input id="filterCycle" type="number" placeholder="Filtrar por ciclo" min="1"
+              class="w-32 border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-400 outline-none shadow-sm transition" />
+            <button id="btnFilter"
+              class="flex items-center gap-1 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">
+              <span class="iconify" data-icon="mdi:filter-variant"></span>
+              Filtrar
+            </button>
+            <!-- Más opciones aquí a futuro: ordenar, exportar, etc. -->
+          </div>
+        </div>
+        <!-- Mensaje vacío o lista dinámica -->
+        <div id="courseList" class="divide-y divide-slate-200 pt-2 text-sm">
+          <div class="text-gray-400 text-center py-10" id="emptyMessage" style="display:none;">
+            <span class="iconify text-3xl mb-1" data-icon="mdi:book-remove-outline"></span><br>
+            No hay cursos registrados aún.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón flotante para móvil -->
+  <button onclick="document.getElementById('name').focus()" class="fixed bottom-8 right-8 bg-blue-700 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg z-30 md:hidden hover:bg-blue-800 active:scale-95 transition">
+    <span class="iconify text-3xl" data-icon="mdi:plus"></span>
+  </button>
+</body>
+</html>

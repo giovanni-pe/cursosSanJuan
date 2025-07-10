@@ -1,0 +1,4 @@
+Abrir las paginas, para ver el mantenimiento completo de las tablas
+para migraciones usar 
+dotnet ef migrations add InitialCreate
+dotnet ef database update

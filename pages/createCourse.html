@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Course</title>
+  <script type="module" src="./createCourse.js"></script>
+    <!-- Tailwind CSS CDN actualizado -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md">
+    <h1 class="text-2xl font-bold mb-4">📚 Register New Course</h1>
+
+    <form id="courseForm" class="space-y-4">
+      <input id="name" type="text" placeholder="Course name" class="w-full border rounded p-2" />
+      <input id="credits" type="number" placeholder="Credits" class="w-full border rounded p-2" />
+      <input id="weeklyHours" type="number" placeholder="Weekly Hours" class="w-full border rounded p-2" />
+      <input id="cycle" type="number" placeholder="Cycle" class="w-full border rounded p-2" />
+
+      <select id="teacherId" class="w-full border rounded p-2">
+        <option value="">Select teacher</option>
+      </select>
+
+      <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+        <span class="iconify inline-block mr-2" data-icon="mdi:plus-circle"></span>
+        Create Course
+      </button>
+    </form>
+  </div>
+</body>
+</html>
