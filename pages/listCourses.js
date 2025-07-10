@@ -13,7 +13,7 @@ async function handleViewDetail(id) {
       <p><strong>Credits:</strong> ${course.credits}</p>
       <p><strong>Hours:</strong> ${course.weeklyHours}</p>
       <p><strong>Cycle:</strong> ${course.cycle}</p>
-      <p><strong>Teacher:</strong> ${course.teacher.firstName} ${course.teacher.lastName}</p>
+   
     `
   });
 }
